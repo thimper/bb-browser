@@ -289,7 +289,6 @@ export async function evaluate(
     expression,
     returnByValue: options.returnByValue ?? true,
     awaitPromise: options.awaitPromise ?? true,
-    replMode: true,
   });
 
   if (result.exceptionDetails) {
@@ -299,7 +298,7 @@ export async function evaluate(
     throw new Error(`Eval error: ${errorMsg}`);
   }
 
-  return result.result?.value;
+  return result.result?.value ?? result.result;
 }
 
 /**
@@ -323,7 +322,7 @@ export async function callFunctionOn(
     throw new Error(result.exceptionDetails.exception?.description || 'Call failed');
   }
 
-  return result.result?.value;
+  return result.result?.value ?? result.result;
 }
 
 // ============================================================================
